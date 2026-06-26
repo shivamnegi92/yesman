@@ -1,0 +1,9 @@
+{
+  "name": "unglaze",
+  "version": "0.1.0",
+  "description": "Stop your AI agent from glazing you. No more 'You're absolutely right!'.",
+  "author": { "name": "unglaze contributors" },
+  "license": "MIT",
+  "skills": ["./skills/unglaze", "./skills/unglaze-check"],
+  "hooks": "./hooks/hooks.json"
+}

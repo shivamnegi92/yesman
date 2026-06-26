@@ -1,0 +1,7 @@
+{
+  "name": "unglaze",
+  "owner": { "name": "unglaze contributors" },
+  "plugins": [
+    { "name": "unglaze", "source": "./", "description": "Stop your AI agent from glazing you." }
+  ]
+}

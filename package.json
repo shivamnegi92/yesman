@@ -1,0 +1,15 @@
+{
+  "name": "unglaze",
+  "version": "0.1.0",
+  "description": "Stop your AI agent from glazing you. No empty praise, no hype, no 'You're absolutely right!'.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": { "unglaze": "scripts/cli.js" },
+  "scripts": {
+    "test": "node --test",
+    "sync": "node scripts/sync-rules.js",
+    "check": "node scripts/check-rule-copies.js"
+  },
+  "keywords": ["ai-agents", "claude-code", "cursor", "llm", "prompt-engineering", "sycophancy", "agent-skills", "developer-tools"],
+  "engines": { "node": ">=18" }
+}
