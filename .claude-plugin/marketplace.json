@@ -1,7 +1,7 @@
 {
-  "name": "unglaze",
-  "owner": { "name": "unglaze contributors" },
+  "name": "yesman",
+  "owner": { "name": "yesman contributors" },
   "plugins": [
-    { "name": "unglaze", "source": "./", "description": "Stop your AI agent from glazing you." }
+    { "name": "yesman", "source": "./", "description": "Stop your AI agent from glazing you." }
   ]
 }

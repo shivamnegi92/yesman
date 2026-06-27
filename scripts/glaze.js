@@ -9,6 +9,10 @@ const PATTERNS = {
     /\bspot[\s-]on\b/gi,
     /\bexactly!/gi,
     /\b100%\s*(?:right|correct|agree)?/gi,
+    /\byou\s+nailed\s+it\b/gi,
+    /\byou\s+crushed\s+it\b/gi,
+    /\bcouldn'?t\s+agree\s+more\b/gi,
+    /\bwell\s+said\b/gi,
   ],
   "opening-praise": [
     /\bgreat\s+question\b/gi,
@@ -19,6 +23,11 @@ const PATTERNS = {
   ],
   "hype": [
     /\b(?:brilliant|amazing|fantastic|incredible|awesome|genius|stellar|superb|phenomenal)\b/gi,
+    /\bgame[\s-]?changer\b/gi,
+    /\btop[\s-]notch\b/gi,
+    /\bnext[\s-]level\b/gi,
+    /\bworld[\s-]class\b/gi,
+    /\bchef'?s\s+kiss\b/gi,
   ],
   "apology-padding": [
     /\b(?:i'?m|i am)\s+(?:so|really|deeply|terribly)\s+sorry\b/gi,
@@ -29,6 +38,15 @@ const PATTERNS = {
     /\byou'?ve\s+got\s+this\b/gi,
     /\bgreat\s+work\b/gi,
     /\bkeep\s+up\s+the\s+(?:great|good)\s+work\b/gi,
+  ],
+  "filler-closer": [
+    /\blet\s+me\s+know\s+if\s+you\s+(?:have|need)\b/gi,
+    /\bfeel\s+free\s+to\s+(?:ask|reach\s+out|let\s+me\s+know)\b/gi,
+    /\bhope\s+this\s+helps\b/gi,
+    /\bhappy\s+to\s+help\b/gi,
+  ],
+  "emoji": [
+    /[\u{1F300}-\u{1F9FF}\u{2600}-\u{27BF}\u{1FA00}-\u{1FAFF}]/gu,
   ],
 };
 

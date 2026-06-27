@@ -1,10 +1,10 @@
 {
-  "name": "unglaze",
+  "name": "yesman",
   "version": "0.1.0",
   "description": "Stop your AI agent from glazing you. No empty praise, no hype, no 'You're absolutely right!'.",
   "license": "MIT",
   "type": "commonjs",
-  "bin": { "unglaze": "scripts/cli.js" },
+  "bin": { "yesman": "scripts/cli.js" },
   "scripts": {
     "test": "node --test",
     "sync": "node scripts/sync-rules.js",

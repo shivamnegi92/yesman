@@ -1,7 +1,7 @@
 "use strict";
 
-const BEGIN = "<!-- UNGLAZE:BEGIN -->";
-const END = "<!-- UNGLAZE:END -->";
+const BEGIN = "<!-- YESMAN:BEGIN -->";
+const END = "<!-- YESMAN:END -->";
 
 function extractBlock(text) {
   const s = text.indexOf(BEGIN);

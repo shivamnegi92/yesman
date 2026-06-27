@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 "use strict";
 
-// unglaze CLI: score text (or files, or stdin) for glaze.
-//   echo "You're absolutely right!" | npx unglaze
-//   npx unglaze README.md
+// yesman CLI: score text (or files, or stdin) for glaze.
+//   echo "You're absolutely right!" | npx yesman
+//   npx yesman README.md
 const fs = require("fs");
 const { detectGlaze, deglazeScore } = require("./glaze.js");
 

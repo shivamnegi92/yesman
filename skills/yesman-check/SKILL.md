@@ -1,15 +1,15 @@
 ---
-name: unglaze-check
+name: yesman-check
 description: >
   Scan the last response (or a pasted one) for glazing: opening praise, hype
   adjectives, reflexive "you're absolutely right", apology padding, and closing
   flattery. Returns the offending phrases and a deglazed rewrite. Use when the
-  user says "unglaze check", "did you just glaze me", or "rewrite without the
+  user says "yesman check", "did you just glaze me", or "rewrite without the
   flattery".
 license: MIT
 ---
 
-# unglaze: check
+# yesman: check
 
 Audit a response for glazing and hand back a clean version.
 

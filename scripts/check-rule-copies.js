@@ -18,7 +18,7 @@ if (ok) {
   console.log(`OK: all ${Object.keys(copies).length} rule copies match the canonical block`);
   process.exit(0);
 }
-console.error("DRIFT: these copies no longer match rules/unglaze.md:");
+console.error("DRIFT: these copies no longer match rules/yesman.md:");
 for (const m of mismatches) console.error("  - " + m);
 console.error('\nRun "npm run sync" to regenerate them.');
 process.exit(1);

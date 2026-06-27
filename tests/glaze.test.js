@@ -39,3 +39,26 @@ test("deglazeScore is 100 for clean text and lower with glaze", () => {
   assert.strictEqual(deglazeScore("Batch the calls on line 42."), 100);
   assert.ok(deglazeScore("You're absolutely right, what a brilliant question!") < 100);
 });
+
+test("flags filler closers", () => {
+  assert.ok(detectGlaze("Let me know if you have any other questions!").some((h) => h.category === "filler-closer"));
+  assert.ok(detectGlaze("Feel free to reach out anytime.").some((h) => h.category === "filler-closer"));
+});
+
+test("flags celebration emoji", () => {
+  assert.ok(detectGlaze("Done and shipped \u{1F389}\u{1F680}").some((h) => h.category === "emoji"));
+});
+
+test("flags more agreement phrases", () => {
+  assert.ok(detectGlaze("You nailed it.").some((h) => h.category === "agreement"));
+  assert.ok(detectGlaze("Couldn't agree more.").some((h) => h.category === "agreement"));
+});
+
+test("flags more hype (game-changer, chef's kiss, top-notch)", () => {
+  assert.ok(detectGlaze("This is a real game-changer.").some((h) => h.category === "hype"));
+  assert.ok(detectGlaze("Top-notch work here.").some((h) => h.category === "hype"));
+});
+
+test("plain technical text stays clean with new rules", () => {
+  assert.deepStrictEqual(detectGlaze("Batch the calls on line 42 to fix the N+1."), []);
+});

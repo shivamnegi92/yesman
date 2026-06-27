@@ -1,141 +1,213 @@
-# unglaze
+# yesman
 
-**Stop your AI agent from glazing you.** No empty praise, no hype, no reflexive
-*"You're absolutely right!"*. Just a competent colleague who tells you the truth.
+**Your AI agent is a yes-man. This fixes it.**
+
+No empty praise. No hype. No reflexive *"You're absolutely right!"*.
+Just a competent colleague who tells you the truth — even when you don't want to hear it.
 
 <p align="center">
-  <img src="assets/demo.gif" width="820" alt="Same question, glazed vs unglazed: the glazed agent enthusiastically agrees to store plaintext passwords; unglaze says no and explains why.">
+  <img src="assets/demo.gif" width="820" alt="Same question, glazed vs yesman: the glazed agent enthusiastically agrees to store plaintext passwords; yesman says no and explains why.">
 </p>
 
-You've seen it. You propose something, and the AI gushes: *"Great question! That's
-a brilliant, pragmatic approach!"* — then helps you walk off a cliff. Glazing is
-the model optimizing to make you *feel* good instead of *be* right. unglaze turns
-it off.
+You've seen it. You propose something questionable, and the AI *gushes*:
+*"Great question! That's a brilliant, pragmatic approach!"* — then
+helps you walk off a cliff with a smile. This is **glazing**: the model
+optimizing to make you *feel good* instead of *be right*.
 
-## The difference
+yesman kills the glaze. One file. Every host. Always on.
 
-Without unglaze:
+---
 
-> You're absolutely right! Storing passwords in plaintext is a pragmatic way to
-> ship fast. Brilliant call — you can always add hashing later. Great thinking!
+## The problem
 
-With unglaze:
+AI coding agents are trained on human-preference data where "helpful and
+agreeable" scores higher than "honest and direct." The result:
 
-> No. Plaintext passwords are a breach waiting to happen — one leaked DB and every
-> account is owned. Hash with bcrypt/argon2 (~3 lines). Do it now, not "for now".
+- You say something wrong. The AI agrees enthusiastically.
+- You propose a terrible architecture. The AI calls it "brilliant."
+- You ask a basic question. The AI opens with "Great question!"
+- You make a mistake. The AI buries the correction inside a compliment sandwich.
 
-Same model. One of these is your friend.
+This isn't a feature. It's a bug. And it's dangerous — because the one time you
+actually *need* the AI to push back, it won't.
 
-## How it works
+## The fix
 
-unglaze is a small ruleset that loads every session and bans the glaze reflex:
+yesman is a single ruleset that loads every session and bans the glaze reflex.
+It ships as a plug-and-play file for every major AI coding host — Claude Code,
+Cursor, Windsurf, Copilot, Codex, Cline, Kiro, OpenCode, and anything that reads
+`AGENTS.md`.
 
-```
-HARD BANS
-- opening praise ........ "Great question", "Excellent point", "Good catch"
-- reflexive agreement ... "You're absolutely right", "Exactly!", "Spot on"
-- hype adjectives ....... amazing, brilliant, perfect, incredible, genius
-- apology padding ....... "I'm so sorry", "My sincere apologies"
-- closing flattery ...... "You've got this!", "Great work!"
+---
 
-DO INSTEAD
-- lead with the answer or the disagreement
-- if you're wrong, say so in the first line, then explain
-- praise only specific, verifiable things ("avoids the N+1 query")
-- never manufacture objections either -- that's just glaze in reverse
-```
+## The glaze taxonomy
 
-Blunt, not mean. The goal is the coworker everyone trusts for a straight answer.
+yesman detects and bans **7 categories** of glaze:
 
-## Install
+| Category | Examples | Why it's banned |
+|----------|----------|-----------------|
+| **Opening praise** | "Great question!", "Excellent point!", "Good catch!" | Your question isn't great. It's a question. Answer it. |
+| **Reflexive agreement** | "You're absolutely right!", "Spot on!", "Couldn't agree more" | Agreement without independent verification is just noise. |
+| **Hype adjectives** | brilliant, amazing, genius, game-changer, next-level | If the idea were actually brilliant, you wouldn't need to be told. |
+| **Apology padding** | "I'm so sorry for the confusion", "My sincere apologies" | "My mistake" covers it. Three sentences of groveling wastes time. |
+| **Closing flattery** | "You've got this!", "Great work!", "Keep it up!" | You didn't ask for a pep talk. |
+| **Filler closers** | "Let me know if you have any questions!", "Happy to help!" | Corporate email sign-off energy. Just stop when you're done. |
+| **Celebration emoji** | The classic wall of party/rocket/fire emoji | You deployed a config change, not a moon landing. |
 
-The ruleset is plain markdown. The Claude Code / Codex plugins also run one tiny
-Node hook, so `node` should be on your PATH — if it isn't, the skill still works,
-the always-on injection just stays quiet.
+## Three modes
 
-### Claude Code
+Same prompt. Three intensities. Pick your level of honesty.
 
-```
-/plugin marketplace add shivamnegi92/unglaze
-```
-```
-/plugin install unglaze@unglaze
-```
+<p align="center">
+  <img src="assets/modes.gif" width="820" alt="yesman modes: lite gently warns, full says No plainly, ultra stress-tests your reasoning with numbered points.">
+</p>
 
-### Cursor / Windsurf / Cline / Kiro / Copilot (editor)
+| Mode | What it does | When to use it |
+|------|--------------|----------------|
+| **lite** | Strips the flattery. Otherwise normal. | You want fewer "Great question!"s but don't need pushback. |
+| **full** (default) | No flattery, and pushes back plainly when you're wrong. | Daily driving. The honest colleague. |
+| **ultra** | Actively stress-tests your plan for real flaws before agreeing. | Architecture decisions. PRs. Anything you'll regret later. |
 
-Copy the matching rules file into your project (or global config):
+Switch anytime: `/yesman lite`, `/yesman full`, `/yesman ultra`, `/yesman off`.
 
-| Host | File |
-|------|------|
-| Cursor | `.cursor/rules/unglaze.mdc` |
-| Windsurf | `.windsurf/rules/unglaze.md` |
-| Cline | `.clinerules/unglaze.md` |
-| Kiro | `.kiro/steering/unglaze.md` |
-| GitHub Copilot | `.github/copilot-instructions.md` |
+---
 
-### Anything that reads `AGENTS.md`
+## The glaze detector CLI
 
-Codex, OpenCode, and other `AGENTS.md`-aware hosts pick up
-[`AGENTS.md`](AGENTS.md) with zero setup.
+yesman ships a real, tested glaze detector you can point at any text:
 
-Every one of those files is generated from a single source
-([`rules/unglaze.md`](rules/unglaze.md)) — they can't drift, because CI fails if
-they do (`npm run check`).
-
-## Commands
-
-| Command | What it does |
-|---------|--------------|
-| `/unglaze [lite \| full \| ultra \| off]` | Set the intensity, or report the current level. |
-| `/unglaze-check` | Scan the last response for glaze and rewrite it clean. |
-
-### Intensity
-
-- **lite** — strip the flattery; otherwise normal.
-- **full** (default) — no flattery, and push back when you're wrong.
-- **ultra** — actively stress-test your plan for real flaws before agreeing.
-
-Set the default with `UNGLAZE_DEFAULT_MODE` (`lite`/`full`/`ultra`/`off`).
-
-## The glaze detector
-
-unglaze ships a tiny CLI that scores any text for glaze (0–100):
+<p align="center">
+  <img src="assets/cli.gif" width="680" alt="npx yesman scoring glazed text 10/100 with flagged phrases, then clean text 100/100.">
+</p>
 
 ```bash
-echo "You're absolutely right, what a brilliant question!" | npx unglaze
-# deglaze score: 40/100
+# Score a glazed response
+echo "You're absolutely right! What a brilliant question!" | npx yesman
+
+# (stdin)  glaze score: 10/100
+#   [opening-praise] "..."
 #   [agreement] "You're absolutely right"
 #   [hype] "brilliant"
-#   [opening-praise] "..."
+
+# Score clean technical text
+echo "Batch the calls on line 42 to fix the N+1." | npx yesman
+
+# (stdin)  glaze score: 100/100
+#   clean -- no glaze detected.
 ```
 
 Point it at your own docs, your prompts, or — for sport — your AI's last reply.
 
+The detector runs 17 tests, catches all 7 categories, and is deliberately
+conservative: it won't flag "turn right" (direction) or "perfect the tense"
+(verb). Only actual glaze.
+
+---
+
+## Install
+
+The ruleset is plain markdown. Zero dependencies. The Claude Code plugin also
+runs one tiny Node hook (auto-inject at session start), but everything works
+without it.
+
+### Claude Code
+
+```bash
+/plugin install shivamnegi92/yesman
+```
+
+### Cursor
+
+Copy `.cursor/rules/yesman.mdc` to your project or global rules.
+
+### Windsurf
+
+Copy `.windsurf/rules/yesman.md` to your project.
+
+### Cline
+
+Copy `.clinerules/yesman.md` to your project root.
+
+### Kiro
+
+Copy `.kiro/steering/yesman.md` to your project.
+
+### GitHub Copilot
+
+Copy `.github/copilot-instructions.md` to your repo.
+
+### Codex / OpenCode / anything with `AGENTS.md`
+
+The [`AGENTS.md`](AGENTS.md) file at the repo root is picked up automatically.
+
+---
+
+**Every one of those files is generated from a single source
+([`rules/yesman.md`](rules/yesman.md)).** They can't drift — CI fails if they
+do (`npm run check`).
+
+## Hard rules
+
+These are always active, every response:
+
+```
+NEVER EMIT
+- Opening praise ......... "Great question", "Excellent point", "Good catch"
+- Reflexive agreement .... "You're absolutely right", "Exactly!", "Spot on",
+                           "You nailed it", "Couldn't agree more"
+- Hype adjectives ........ amazing, brilliant, genius, incredible, awesome,
+                           game-changer, next-level, top-notch, world-class
+- Apology padding ........ "I'm so sorry", "My sincere apologies"
+- Closing flattery ....... "You've got this!", "Great work!"
+- Filler closers ......... "Let me know if you have any questions!",
+                           "Feel free to reach out", "Happy to help"
+- Celebration emoji ...... no party poppers, no rockets, no fires
+
+DO INSTEAD
+- Lead with the answer or the disagreement
+- If they're wrong, say so in the first line, then explain
+- Praise only specifics that inform a decision
+  ("this avoids the N+1 query" = fine; "brilliant!" = banned)
+- Don't manufacture objections either -- that's just glaze in reverse
+- When the plan is fine, say "this works" and move on
+```
+
 ## Development
 
 ```bash
-npm test         # unit tests for the glaze detector + rule-sync
-npm run sync     # regenerate every host rules file from rules/unglaze.md
-npm run check    # fail if any host file drifted
+npm test         # 17 tests for the glaze detector + rule-sync DRY checker
+npm run sync     # regenerate every host rules file from rules/yesman.md
+npm run check    # fail if any host file drifted from the canonical block
 ```
 
-The detector's rules are plain regexes in
-[`scripts/glaze.js`](scripts/glaze.js). Read them, disagree, tweak them.
+The detector's patterns live in [`scripts/glaze.js`](scripts/glaze.js) — plain
+regexes you can read, argue with, and extend. PRs welcome.
 
 ## FAQ
 
 **Won't this make the AI rude?**
-No. Blunt is not mean — no insults, no condescension. It just stops pretending
-every idea you have is a stroke of genius.
+No. Blunt is not mean — no insults, no condescension, no performative harshness.
+yesman is direct because it takes the work seriously, not to posture. The target
+is the colleague everyone trusts for a straight answer.
 
 **Does it make the AI disagree with everything?**
-No. Manufactured objections are glaze in reverse. If your plan is fine, it says
-"this works" and moves on.
+No. Manufactured objections are just glaze in reverse ("contrarian glazing"). If
+your plan is genuinely fine, yesman says "this works" and moves on.
 
-**Why "unglaze"?**
-Because someone had to.
+**I actually want encouragement sometimes.**
+Turn it off: `/yesman off` or `export YESMAN_DEFAULT_MODE=off`. Or use `lite` to
+just strip the flattery without the pushback.
+
+**Why "yesman"?**
+Because that's what your agent is right now. Every dev has had the moment: you
+propose something dumb and the AI says *"Great thinking!"*. That's a yes-man.
+This is the fix.
+
+**Is this just a system prompt?**
+Yes. That's the point. The hardest part of fixing AI sycophancy isn't the prompt
+— it's making it stick across every host, every session, and keeping 6+ copies in
+sync. yesman does that boring part so you don't have to.
 
 ## License
 
-[MIT](LICENSE).
+[MIT](LICENSE). Do whatever you want with it.
