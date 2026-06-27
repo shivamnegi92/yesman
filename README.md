@@ -6,7 +6,9 @@ No empty praise. No hype. No reflexive *"You're absolutely right!"*.
 Just a competent colleague who tells you the truth — even when you don't want to hear it.
 
 <p align="center">
-  <img src="assets/demo.gif" width="820" alt="Same question, glazed vs yesman: the glazed agent enthusiastically agrees to store plaintext passwords; yesman says no and explains why.">
+  <img src="assets/yesman-meme.jpeg" width="480" alt="4-panel comic: 'Is the sky green?' 'Yes!' / 'But it's blue.' 'Absolutely, you're right!' / 'Do you just agree with everything?' 'Exactly!' / 'Disagree with me, please.' 'I agree!'">
+  <br>
+  <sub>Comic by <a href="https://www.reddit.com/r/ChatGPT/comments/1nik5k5/the_yes_man/">u/krackOdawn</a> — this is the problem.</sub>
 </p>
 
 You've seen it. You propose something questionable, and the AI *gushes*:
@@ -15,6 +17,10 @@ helps you walk off a cliff with a smile. This is **glazing**: the model
 optimizing to make you *feel good* instead of *be right*.
 
 yesman kills the glaze. One file. Every host. Always on.
+
+<p align="center">
+  <img src="assets/demo.gif" width="820" alt="Same prompt, glazed vs yesman: the glazed agent agrees to store plaintext passwords; yesman says no and explains why.">
+</p>
 
 ---
 
